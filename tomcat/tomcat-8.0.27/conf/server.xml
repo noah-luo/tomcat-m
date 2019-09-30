@@ -1,56 +1,22 @@
+    
 <?xml version='1.0' encoding='utf-8'?>
-<!--
-  Licensed to the Apache Software Foundation (ASF) under one or more
-  contributor license agreements.  See the NOTICE file distributed with
-  this work for additional information regarding copyright ownership.
-  The ASF licenses this file to You under the Apache License, Version 2.0
-  (the "License"); you may not use this file except in compliance with
-  the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
--->
-<!-- Note:  A "Server" is not itself a "Container", so you may not
-     define subcomponents such as "Valves" at this level.
-     Documentation at /docs/config/server.html
- -->
 <!-- 端口改为-1(会随机生成)，默认是8005-->
 <Server port="-1" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
-  <!-- Security listener. Documentation at /docs/config/listeners.html
-  <Listener className="org.apache.catalina.security.SecurityListener" />
-  -->
-  <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-  <!-- Prevent memory leaks due to use of particular java/javax APIs-->
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
-
-  <!-- Global JNDI resources
-       Documentation at /docs/jndi-resources-howto.html
-  -->
   <GlobalNamingResources>
-    <!-- Editable user database that can also be used by
-         UserDatabaseRealm to authenticate users
-    -->
+    <!-- 用户配置1,由于默认用户已全部注释,安全起见,这些代码也注释掉  
     <Resource name="UserDatabase" auth="Container"
               type="org.apache.catalina.UserDatabase"
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
+    -->
   </GlobalNamingResources>
-
-  <!-- A "Service" is a collection of one or more "Connectors" that share
-       a single "Container" Note:  A "Service" is not itself a "Container",
-       so you may not define subcomponents such as "Valves" at this level.
-       Documentation at /docs/config/service.html
-   -->
+<!-- 连接池配置 -->
   <Service name="Catalina">
     <Executor 
         name="tomcatThreadPool" 
@@ -60,43 +26,41 @@
         prestartminSpareThreads = "true"
         maxQueueSize = "100"
     />
-<!-- 访问端口，必须配置 -->
-    <Connector  executor="tomcatThreadPool"
-            port="8080"
-            protocol="org.apache.coyote.http11.Http11Nio2Protocol"
-            connectionTimeout="20000"
-            redirectPort="8443"/>    
-    <!-- 由于没有使用apache,禁用掉AJP端口    -->     
+<!-- 访问端口，以及一些其他配置(开启压缩,禁用DNS解析等) -->
+	<Connector 
+	   executor="tomcatThreadPool"
+	   port="8080" 
+	   protocol="org.apache.coyote.http11.Http11Nio2Protocol" 
+	   connectionTimeout="20000" 
+	   maxConnections="10000" 
+	   redirectPort="8443" 
+	   enableLookups="false" 
+	   acceptCount="100" 
+	   maxPostSize="10485760" 
+	   compression="on" 
+	   disableUploadTimeout="true" 
+	   compressionMinSize="2048" 
+	   acceptorThreadCount="2" 
+	   compressableMimeType="text/html,text/xml,text/plain,text/css,text/javascript,application/javascript" 
+	   URIEncoding="utf-8"       
+	/>  
+ <!-- 由于没有使用apache,禁用掉AJP端口    -->
     <!-- Connector port="8009" protocol="AJP/1.3" redirectPort="8443" /> -->
-
     <Engine name="Catalina" defaultHost="localhost">
-
-      <!--For clustering, please take a look at documentation at:
-          /docs/cluster-howto.html  (simple how to)
-          /docs/config/cluster.html (reference documentation) -->
-      <!--
-      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
-      -->
-
-      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
-           via a brute-force attack -->
+      <!-- 用户配置2,由于默认用户已全部注释,安全起见,这些代码也注释掉   
       <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <!-- This Realm uses the UserDatabase configured in the global JNDI
-             resources under the key "UserDatabase".  Any edits
-             that are performed against this UserDatabase are immediately
-             available for use by the Realm.  -->
         <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
                resourceName="UserDatabase"/>
       </Realm>
-
+    -->
+ <!-- 根目录已设置为webapps,如只有一个项目,不想输入项目名,需修改docBase  -->
       <Host name="localhost"  appBase="webapps"
             unpackWARs="true" autoDeploy="true">
          <Context path="/" docBase="" debug="0" reloadable="true" crossContext="true"/>
-
+<!-- 日志配置,访问量大可将logging.properties中日志级别设置为warning  -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-
       </Host>
     </Engine>
   </Service>
