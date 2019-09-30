@@ -65,7 +65,13 @@ script目录下有三个脚本,分别是`instance.sh`,`tomcat.sh`,`setenv.sh`
 ## 命令说明
 直接执行脚本不带参数,会输出帮助信息,帮助信息就是使用说明
 ```
-faafa
+I./script/instance.sh 
+-------------使用帮助-------------
+./script/instance.sh [-add|-list|-remove|-removeall] {port} {ins_name}
+添加单个实例:	  ./script/instance.sh -add port ins_name
+显示所有实例:	  ./script/instance.sh -list
+移除单个实例:	  ./script/instance.sh -remove port
+移除所有实例:	  ./script/instance.sh -removeall
 ```
 ### 添加实例 
 ```shell
