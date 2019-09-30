@@ -15,10 +15,10 @@ instance_dir=$app_dir/$instance_name
 function helpme()
 {
 	echo "-------------使用帮助-------------"
-	echo "$0 [-add|-list|-remove|-removeall] 其他参数"
+	echo "$0 [-add|-list|-remove|-removeall] {port} {ins_name}"
 	echo -e "添加单个实例:\t  $0 -add port ins_name"
 	echo -e "显示所有实例:\t  $0 -list"
-	echo -e "移除单个实例:\t  $0 -remove port ins_name"
+	echo -e "移除单个实例:\t  $0 -remove port"
 	echo -e "移除所有实例:\t  $0 -removeall"
 }
 if [ $# -eq 0 ];then
