@@ -40,7 +40,7 @@ tomcat-many-instance 是一个部署tomcat单机多实例工具，内含脚本
 
 ## server.xml配置文件更改
 1. 删除注释配置,添加部分中文注释
-2. 该8005端口为随机端口
+2. 修改8005端口为随机端口
 3. 禁用ajp端口[8009]
 4. 注释掉tomcat认证用户相关配置
 5. 添加tomcat连接池配置
@@ -53,9 +53,13 @@ tomcat-many-instance 是一个部署tomcat单机多实例工具，内含脚本
 # 使用说明
 ## 脚本说明
 script目录下有三个脚本,分别是`instance.sh`,`tomcat.sh`,`setenv.sh`
+
 `instance.sh`脚本是主角,用于生产多实例配置,生成过程中会cp后两个脚本多实例目录下
+
 `tomcat.sh`是实例启停脚本,导入了`setenv.sh`脚本中的内存参数,本脚本可在任意目录执行
+
 `setenv.sh`中是JAVA_OPTS`配置参数及参数说明
+
 本脚本仅能生成端口号为8081-8099的实例[20个已经够多了]
 
 ## 命令说明
