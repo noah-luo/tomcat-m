@@ -58,7 +58,7 @@ script目录下有三个脚本,分别是`instance.sh`,`tomcat.sh`,`setenv.sh`
 
 `tomcat.sh`是实例启停脚本,导入了`setenv.sh`脚本中的内存参数,本脚本可在任意目录执行
 
-`setenv.sh`中是JAVA_OPTS`配置参数及参数说明
+`setenv.sh`中是`JAVA_OPTS`配置参数及参数说明
 
 本脚本仅能生成端口号为8081-8099的实例[20个已经够多了]
 
