@@ -26,15 +26,15 @@ if [ $# -eq 0 ];then
 	exit
 fi
 
-echo "--------info---------"
-echo "  ROOT_DIR=$root_dir"
-echo "  SCRIPT_DIR=$script_dir"
-echo "  TOMCAT_DIR=$tomcat_dir"
-echo "  HTTP_PORT=$http_port"
-echo "  SHUTDOWN_PORT=$shutdown_port"
-echo "  AJP_PORT=$ajp_port"
-echo "  INSTANCE_DIR=$instance_dir"
-echo "  ACTION=$action"
+#echo "--------info---------"
+#echo "  ROOT_DIR=$root_dir"
+#echo "  SCRIPT_DIR=$script_dir"
+#echo "  TOMCAT_DIR=$tomcat_dir"
+#echo "  HTTP_PORT=$http_port"
+#echo "  SHUTDOWN_PORT=$shutdown_port"
+#echo "  AJP_PORT=$ajp_port"
+#echo "  INSTANCE_DIR=$instance_dir"
+#echo "  ACTION=$action"
 
 function replace()
 {
@@ -71,12 +71,14 @@ function addInstance()
 	mkdir $instance_dir/webapps
 	mkdir $instance_dir/logs
 	cp -R $tomcat_dir/conf $instance_dir/
+	cp    $script_dir/tomcat.sh $instance_dir/
+	cp    $script_dir/setenv.sh $instance_dir/
   
 	echo "Step 4: 替换配置文件端口......"
 	serverXML=$instance_dir/conf/server.xml
-	replace $serverXML 8005 $shutdown_port
 	replace $serverXML 8080 $http_port
-	replace $serverXML 8009 $ajp_port
+	replace $serverXML 8005 $shutdown_port
+      #	replace $serverXML 8009 $ajp_port
 	echo "Create new tomcat instance successfully!"
 }
 

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!-- 默认是8005,可以改为-1来禁用-->
-<Server port="8005" shutdown="SHUTDOWN">
+<!-- 默认是5082,可以改为-1来禁用-->
+<Server port="5082" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
@@ -28,7 +28,7 @@
 <!-- 访问端口，以及一些其他配置(开启压缩,禁用DNS解析等) -->
 	<Connector 
 	   executor="tomcatThreadPool"
-	   port="8080" 
+	   port="8082" 
 	   protocol="org.apache.coyote.http11.Http11Nio2Protocol" 
 	   connectionTimeout="20000" 
 	   maxConnections="10000" 
