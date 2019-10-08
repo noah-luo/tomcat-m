@@ -1,5 +1,5 @@
 # tomcat-many-instance
-tomcat-many-instance 是一个部署tomcat单机多实例工具，内含脚本
+tomcat-m是一个部署tomcat单机多实例工具，既可以单实例使用,也可以多实例使用,配置文件做了部分优化
 
 -----
 
