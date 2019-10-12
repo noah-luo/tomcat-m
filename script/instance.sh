@@ -70,6 +70,7 @@ function addInstance()
 	mkdir $instance_dir
 	mkdir $instance_dir/webapps
 	mkdir $instance_dir/logs
+	mkdir $instance_dir/temp
 	cp -R $tomcat_dir/conf $instance_dir/
 	cp    $script_dir/tomcat.sh $instance_dir/
 	cp    $script_dir/setenv.sh $instance_dir/
