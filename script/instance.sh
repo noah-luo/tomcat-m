@@ -18,7 +18,7 @@ function helpme()
 	echo "$0 [-add|-list|-remove|-removeall] {port} {ins_name}"
 	echo -e "添加单个实例:\t  $0 -add port ins_name"
 	echo -e "显示所有实例:\t  $0 -list"
-	echo -e "移除单个实例:\t  $0 -remove port"
+	echo -e "移除单个实例:\t  $0 -remove port ins_name"
 	echo -e "移除所有实例:\t  $0 -removeall"
 }
 if [ $# -eq 0 ];then
@@ -99,7 +99,7 @@ function removeInstance()
 		exit 4
 	elif [ -d "$instance_dir" ]; then
         rm -rf "$instance_dir/"
-        echo '实例$instance_name已删除'
+        echo "实例$instance_name已删除"
     else
     	echo "实例$instance_name不存在,请检查"
 	fi
